@@ -46,13 +46,11 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\IInspectable.cs" />
     <Compile Include="Constants\AuthTokenLocation.cs" />
     <Compile Include="Config\RestClientConfig.cs" />
     <Compile Include="ExponentialBackoff.cs" />
     <Compile Include="Config\HttpClientOptions.cs" />
     <Compile Include="Abstract\IRestClientRequest.cs" />
-    <Compile Include="Extensions\ExtensionsForIInspectable.cs" />
     <Compile Include="JSON.cs" />
     <Compile Include="JsonContent.cs" />
     <Compile Include="Exceptions\MaximumRetryAttemptsExceededException.cs" />
@@ -63,7 +61,9 @@
     <Compile Include="Exceptions\RestResponseException.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="360Recognition.RestClientLib.nuspec" />
+    <None Include="Properties\360Recognition.RestClientLib.nuspec">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
