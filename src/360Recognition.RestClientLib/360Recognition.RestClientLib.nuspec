@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/360Recognition/360Recognition.RestClient</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>All RestClient methods are now awaitable</releaseNotes>
+    <releaseNotes>All RestClient methods are now awaitable and assembly is strong key signed</releaseNotes>
     <copyright>Copyright Terryberry 2010 - 2014</copyright>
     <tags>HTTP, REST, WebAPI</tags>
   </metadata>
