@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,6 +11,10 @@ namespace Recognition360.RestClientLib
 
         public RestResponse(HttpResponseMessage responseMessage)
         {
+            if (responseMessage == null)
+            {
+                throw new ArgumentNullException("responseMessage");
+            }
             ResponseMessage = responseMessage;
         }
 
@@ -52,9 +57,9 @@ namespace Recognition360.RestClientLib
             }
         }
 
-        public Task<T> ReadResultAsync()
+        public async Task<T> ReadResultAsync()
         {
-            return Content.ReadAsAsync<T>();
+            return await Content.ReadAsAsync<T>();
         }
 
         private void SetResult()
