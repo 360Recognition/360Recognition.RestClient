@@ -28,7 +28,7 @@ namespace Recognition360.RestClientLib
             return BuildUri(config, request.EndPoint, request.Query);
         }
 
-        public static RestResponse<T> Delete<T>(RestClientConfig config, string endPoint, NameValueCollection query = null, Object payload = null) where T : class
+        public static async Task<RestResponse<T>> Delete<T>(RestClientConfig config, string endPoint, NameValueCollection query = null, Object payload = null) where T : class
         {
             HttpRequestMessage request = BuildRequest(config, new RestClientRequest
             {
@@ -42,10 +42,10 @@ namespace Recognition360.RestClientLib
                 request.Content = new JsonContent(payload);
             }
 
-            return new RestResponse<T>(AttemptRequest(config, request));
+            return new RestResponse<T>(await AttemptRequestAsync(config, request));
         }
 
-        public static Task<HttpResponseMessage> Execute(RestClientConfig config, IRestClientRequest request)
+        public static async Task<HttpResponseMessage> Execute(RestClientConfig config, IRestClientRequest request)
         {
             HttpRequestMessage httpRequest = BuildRequest(config, new RestClientRequest
             {
@@ -57,11 +57,11 @@ namespace Recognition360.RestClientLib
 
             using (var client = new HttpClient())
             {
-                return client.SendAsync(httpRequest);
+                return await client.SendAsync(httpRequest);
             }
         }
 
-        public static RestResponse<T> Get<T>(RestClientConfig config, string endPoint, NameValueCollection query = null) where T : class
+        public static async Task<RestResponse<T>> Get<T>(RestClientConfig config, string endPoint, NameValueCollection query = null) where T : class
         {
             HttpRequestMessage request = BuildRequest(config, new RestClientRequest
             {
@@ -70,10 +70,10 @@ namespace Recognition360.RestClientLib
                 Method = HttpMethod.Get
             });
 
-            return new RestResponse<T>(AttemptRequest(config, request));
+            return new RestResponse<T>(await AttemptRequestAsync(config, request));
         }
 
-        public static RestResponse<T> Post<T>(RestClientConfig config, string endPoint, object payload = null, NameValueCollection query = null) where T : class
+        public static async Task<RestResponse<T>> Post<T>(RestClientConfig config, string endPoint, object payload = null, NameValueCollection query = null) where T : class
         {
             HttpRequestMessage request = BuildRequest(config, new RestClientRequest
             {
@@ -87,10 +87,10 @@ namespace Recognition360.RestClientLib
                 request.Content = new JsonContent(payload);
             }
 
-            return new RestResponse<T>(AttemptRequest(config, request));
+            return new RestResponse<T>(await AttemptRequestAsync(config, request));
         }
 
-        public static RestResponse<T> Put<T>(RestClientConfig config, string endPoint, object payload, NameValueCollection query = null) where T : class
+        public static async Task<RestResponse<T>> Put<T>(RestClientConfig config, string endPoint, object payload, NameValueCollection query = null) where T : class
         {
             HttpRequestMessage request = BuildRequest(config, new RestClientRequest
             {
@@ -104,10 +104,10 @@ namespace Recognition360.RestClientLib
                 request.Content = new JsonContent(payload);
             }
 
-            return new RestResponse<T>(AttemptRequest(config, request));
+            return new RestResponse<T>(await AttemptRequestAsync(config, request));
         }
 
-        private static HttpResponseMessage AttemptRequest(RestClientConfig sharpConfig, HttpRequestMessage request, int attempt = 0)
+        private static async Task<HttpResponseMessage> AttemptRequestAsync(RestClientConfig config, HttpRequestMessage request, int attempt = 0)
         {
             if (attempt > HttpClientOptions.RetryLimit)
             {
@@ -125,19 +125,19 @@ namespace Recognition360.RestClientLib
                         sw.WriteLine("{0} {1}", request.Method, request.RequestUri);
                         if (request.Content != null)
                         {
-                            sw.WriteLine(request.Content.ReadAsStringAsync().Result);
+                            sw.WriteLine(await request.Content.ReadAsStringAsync());
                         }
                         logger.Debug(sw.ToString());
                     }
                 }
 
-                HttpResponseMessage response = client.SendAsync(request).Result;
+                HttpResponseMessage response = await client.SendAsync(request);
 
                 if (logger.IsDebugEnabled)
                 {
                     if (response.Content != null)
                     {
-                        logger.Debug(response.Content.ReadAsStringAsync().Result);
+                        logger.Debug(await response.Content.ReadAsStringAsync());
                     }
                 }
 
@@ -150,9 +150,9 @@ namespace Recognition360.RestClientLib
                 {
                     attempt++;
 
-                    ExponentialBackoff.Sleep(sharpConfig.BackoffFactor, attempt);
+                    await ExponentialBackoff.Sleep(config.BackoffFactor, attempt);
 
-                    return AttemptRequest(sharpConfig, request, attempt);
+                    return await AttemptRequestAsync(config, request, attempt);
                 }
 
                 return response;
