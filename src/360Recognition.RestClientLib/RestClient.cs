@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web;
+using Recognition360.RestClientLib.Compression;
 
 namespace Recognition360.RestClientLib
 {
@@ -28,7 +29,7 @@ namespace Recognition360.RestClientLib
             return BuildUri(config, request.EndPoint, request.Query);
         }
 
-        public static async Task<RestResponse<T>> Delete<T>(RestClientConfig config, string endPoint, NameValueCollection query = null, Object payload = null) where T : class
+        public static RestResponseMessage<T> Delete<T>(RestClientConfig config, string endPoint, NameValueCollection query = null, Object payload = null) where T : class
         {
             HttpRequestMessage request = BuildRequest(config, new RestClientRequest
             {
@@ -42,7 +43,7 @@ namespace Recognition360.RestClientLib
                 request.Content = new JsonContent(payload);
             }
 
-            return new RestResponse<T>(await AttemptRequestAsync(config, request));
+            return new RestResponseMessage<T>(AttemptRequestAsync(config, request));
         }
 
         public static async Task<HttpResponseMessage> Execute(RestClientConfig config, IRestClientRequest request)
@@ -55,13 +56,13 @@ namespace Recognition360.RestClientLib
                 Content = request.Content
             });
 
-            using (var client = new HttpClient())
+            using (var client = CreateHttpClient())
             {
                 return await client.SendAsync(httpRequest);
             }
         }
 
-        public static async Task<RestResponse<T>> Get<T>(RestClientConfig config, string endPoint, NameValueCollection query = null) where T : class
+        public static  RestResponseMessage<T> Get<T>(RestClientConfig config, string endPoint, NameValueCollection query = null) where T : class
         {
             HttpRequestMessage request = BuildRequest(config, new RestClientRequest
             {
@@ -70,10 +71,10 @@ namespace Recognition360.RestClientLib
                 Method = HttpMethod.Get
             });
 
-            return new RestResponse<T>(await AttemptRequestAsync(config, request));
+            return new RestResponseMessage<T>(AttemptRequestAsync(config, request));
         }
 
-        public static async Task<RestResponse<T>> Post<T>(RestClientConfig config, string endPoint, object payload = null, NameValueCollection query = null) where T : class
+        public static RestResponseMessage<T> Post<T>(RestClientConfig config, string endPoint, object payload = null, NameValueCollection query = null) where T : class
         {
             HttpRequestMessage request = BuildRequest(config, new RestClientRequest
             {
@@ -87,10 +88,10 @@ namespace Recognition360.RestClientLib
                 request.Content = new JsonContent(payload);
             }
 
-            return new RestResponse<T>(await AttemptRequestAsync(config, request));
+            return new RestResponseMessage<T>(AttemptRequestAsync(config, request));
         }
 
-        public static async Task<RestResponse<T>> Put<T>(RestClientConfig config, string endPoint, object payload, NameValueCollection query = null) where T : class
+        public static RestResponseMessage<T> Put<T>(RestClientConfig config, string endPoint, object payload, NameValueCollection query = null) where T : class
         {
             HttpRequestMessage request = BuildRequest(config, new RestClientRequest
             {
@@ -104,7 +105,12 @@ namespace Recognition360.RestClientLib
                 request.Content = new JsonContent(payload);
             }
 
-            return new RestResponse<T>(await AttemptRequestAsync(config, request));
+            return new RestResponseMessage<T>(AttemptRequestAsync(config, request));
+        }
+
+        private static HttpClient CreateHttpClient()
+        {
+            return HttpClientFactory.Create(new DecompressionHandler(), new CompressionHandler());
         }
 
         private static async Task<HttpResponseMessage> AttemptRequestAsync(RestClientConfig config, HttpRequestMessage request, int attempt = 0)
@@ -116,7 +122,7 @@ namespace Recognition360.RestClientLib
 
             ILog logger = LogManager.GetLogger<RestClient>();
 
-            using (var client = new HttpClient())
+            using (var client = CreateHttpClient())
             {
                 if (logger.IsDebugEnabled)
                 {
@@ -162,6 +168,7 @@ namespace Recognition360.RestClientLib
         private static HttpRequestMessage BuildRequest(RestClientConfig config, IRestClientRequest request)
         {
             SetOathQueryParameterIfRequired(request, config.Token);
+
             var httpRequest = new HttpRequestMessage
             {
                 Content = request.Content,
@@ -170,7 +177,9 @@ namespace Recognition360.RestClientLib
             };
 
             HttpRequestHeaders headers = httpRequest.Headers;
+
             SetOauthHeaderIfRequired(config, request, headers);
+            
             headers.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
             headers.AcceptEncoding.Add(new StringWithQualityHeaderValue("deflate"));
             headers.Accept.Add(new MediaTypeWithQualityHeaderValue(request.Accept));
@@ -217,10 +226,11 @@ namespace Recognition360.RestClientLib
 
         private static void SetOathQueryParameterIfRequired(IRestClientRequest request, string token)
         {
-            if (request.AuthTokenLocation != AuthTokenLocation.Querystring) return;
-
-            request.Query = request.Query ?? new NameValueCollection();
-            request.Query["oauth_token"] = token;
+            if (request.AuthTokenLocation == AuthTokenLocation.Querystring)
+            {
+                request.Query = request.Query ?? new NameValueCollection();
+                request.Query["oauth_token"] = token;
+            }
         }
 
         private static void SetOauthHeaderIfRequired(RestClientConfig config, IRestClientRequest request, HttpRequestHeaders headers)
