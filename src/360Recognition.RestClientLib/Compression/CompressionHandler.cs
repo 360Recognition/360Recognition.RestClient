@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,12 +11,14 @@ namespace Recognition360.RestClientLib.Compression
             HttpRequestMessage request,
             CancellationToken cancellationToken)
         {
-            if (request.Content == null || request.Headers.AcceptEncoding == null)
+            if (request.Content == null || request.Content.Headers.ContentEncoding == null)
             {
                 return await base.SendAsync(request, cancellationToken);
             }
 
-            ICompressor compressor = Compressors.FindCompressor(request.Headers.AcceptEncoding);
+            string encoding = request.Content.Headers.ContentEncoding.FirstOrDefault();
+
+            ICompressor compressor = Compressors.GetCompressor(encoding);
 
             if (compressor != null)
             {
