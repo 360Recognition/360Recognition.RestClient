@@ -6,7 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Recognition360.RestClientLib.Compression
+namespace Terryberry.Http.Compression
 {
     public class CompressedContent : HttpContent
     {

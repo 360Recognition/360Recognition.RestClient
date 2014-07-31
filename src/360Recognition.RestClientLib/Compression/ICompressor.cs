@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 
-namespace Recognition360.RestClientLib.Compression
+namespace Terryberry.Http.Compression
 {
     public interface ICompressor
     {

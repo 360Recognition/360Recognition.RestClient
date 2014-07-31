@@ -2,7 +2,7 @@
 using System.IO;
 using System.Net.Http;
 
-namespace Recognition360.RestClientLib
+namespace Terryberry.Http
 {
     public class RestResponseException : ApplicationException
     {

@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Common.Logging;
 
-namespace Recognition360.RestClientLib.Internal
+namespace Terryberry.Http.Internal
 {
     public static class RestRequestExecuter
     {

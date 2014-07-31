@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Recognition360.RestClientLib
+namespace Terryberry.Http
 {
     public class RestResponseMessage<T> where T : class
     {

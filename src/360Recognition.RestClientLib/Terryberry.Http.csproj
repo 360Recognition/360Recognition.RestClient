@@ -7,8 +7,8 @@
     <ProjectGuid>{184919AA-523A-4F4E-B16E-4808D9762146}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Recognition360.RestClientLib</RootNamespace>
-    <AssemblyName>360Recognition.RestClientLib</AssemblyName>
+    <RootNamespace>Terryberry.Http</RootNamespace>
+    <AssemblyName>Terryberry.Http</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -84,7 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="360Recognition.RestClientLib.nuspec">
+    <None Include="Terryberry.Http.nuspec">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />

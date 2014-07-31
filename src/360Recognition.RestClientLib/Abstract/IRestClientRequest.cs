@@ -1,7 +1,7 @@
 ﻿using System.Collections.Specialized;
 using System.Net.Http;
 
-namespace Recognition360.RestClientLib
+namespace Terryberry.Http
 {
     public interface IRestClientRequest
     {

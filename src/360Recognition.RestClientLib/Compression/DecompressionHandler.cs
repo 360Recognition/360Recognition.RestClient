@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Recognition360.RestClientLib.Compression
+namespace Terryberry.Http.Compression
 {
     public class DecompressionHandler : DelegatingHandler
     {  

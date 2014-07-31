@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
-namespace Recognition360.RestClientLib
+namespace Terryberry.Http
 {
     public class RestClientConfig
     {
@@ -40,8 +42,21 @@ namespace Recognition360.RestClientLib
             set { _host = value; }
         }
 
+        public string ContentEncoding { get; set; }
+
         public string Token { get; set; }
 
         public double BackoffFactor { get; set; }
+
+        public RestClientConfig CreateCopy()
+        {
+            using (var ms = new MemoryStream())
+            {
+                var bf = new BinaryFormatter();
+                bf.Serialize(ms, this);
+                ms.Position = 0;
+                return bf.Deserialize(ms) as RestClientConfig;
+            }
+        }
     }
 }

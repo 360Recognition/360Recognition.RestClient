@@ -1,4 +1,4 @@
-﻿namespace Recognition360.RestClientLib
+﻿namespace Terryberry.Http
 {
     public enum AuthTokenLocation
     {

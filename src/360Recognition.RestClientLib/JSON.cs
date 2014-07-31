@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Threading;
+using Newtonsoft.Json;
 
-namespace Recognition360.RestClientLib
+namespace Terryberry.Http
 {
     public static class JSON
     {

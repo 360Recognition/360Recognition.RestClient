@@ -2,9 +2,10 @@
 using System.Collections.Specialized;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Recognition360.RestClientLib.Internal;
+using Terryberry.Http.Compression;
+using Terryberry.Http.Internal;
 
-namespace Recognition360.RestClientLib
+namespace Terryberry.Http
 {
     public class RestClient
     {
@@ -29,11 +30,19 @@ namespace Recognition360.RestClientLib
             return RestClientUtil.BuildUri(config, request.EndPoint, request.Query);
         }
 
-        public static RestResponseMessage<T> Delete<T>(
+        /// <summary>
+        /// Sends a DELETE <param name="payload"></param> message to the specified <param name="endPoint"></param>
+        /// </summary>
+        /// <typeparam name="TResponseMessage">The strongly typed response message</typeparam>
+        /// <param name="config">The configuration.</param>
+        /// <param name="endPoint">The path for the API (example: /api/userprofile)</param>
+        /// <param name="query">Optional query parameters</param>
+        /// <param name="payload">The payload request message</param>
+        public static RestResponseMessage<TResponseMessage> Delete<TResponseMessage>(
             RestClientConfig config,
             string endPoint,
             NameValueCollection query = null,
-            Object payload = null) where T : class
+            Object payload = null) where TResponseMessage : class
         {
             HttpRequestMessage request = RestClientUtil.BuildRequest(config, new RestClientRequest
             {
@@ -44,13 +53,18 @@ namespace Recognition360.RestClientLib
 
             if (payload != null)
             {
-                request.Content = new JsonContent(payload);
+                request.Content = new JsonContent(payload, config.ContentEncoding);
             }
 
-            return new RestResponseMessage<T>(RestRequestExecuter.AttemptRequestAsync(config, request));
+            return new RestResponseMessage<TResponseMessage>(RestRequestExecuter.AttemptRequestAsync(config, request));
         }
 
-        public static async Task<HttpResponseMessage> Execute(RestClientConfig config, IRestClientRequest request)
+        /// <summary>
+        /// Executes a raw HTTP client request
+        /// </summary>
+        /// <param name="config">The configuration.</param>
+        /// <param name="request">The request parameters.</param>
+        public static Task<HttpResponseMessage> Execute(RestClientConfig config, IRestClientRequest request)
         {
             HttpRequestMessage httpRequest = RestClientUtil.BuildRequest(config, new RestClientRequest
             {
@@ -62,14 +76,21 @@ namespace Recognition360.RestClientLib
 
             using (HttpClient client = RestClientUtil.CreateHttpClient())
             {
-                return await client.SendAsync(httpRequest);
+                return client.SendAsync(httpRequest);
             }
         }
 
-        public static RestResponseMessage<T> Get<T>(
+        /// <summary>
+        /// Gets an API response from the specified <param name="endPoint"></param>
+        /// </summary>
+        /// <typeparam name="TResponseMessage">The strongly typed response message</typeparam>
+        /// <param name="config">The configuration.</param>
+        /// <param name="endPoint">The path for the API (example: /api/userprofile)</param>
+        /// <param name="query">Optional query parameters</param>
+        public static RestResponseMessage<TResponseMessage> Get<TResponseMessage>(
             RestClientConfig config,
             string endPoint,
-            NameValueCollection query = null) where T : class
+            NameValueCollection query = null) where TResponseMessage : class
         {
             HttpRequestMessage request = RestClientUtil.BuildRequest(config, new RestClientRequest
             {
@@ -78,14 +99,43 @@ namespace Recognition360.RestClientLib
                 Method = HttpMethod.Get
             });
 
-            return new RestResponseMessage<T>(RestRequestExecuter.AttemptRequestAsync(config, request));
+            return new RestResponseMessage<TResponseMessage>(RestRequestExecuter.AttemptRequestAsync(config, request));
         }
 
-        public static RestResponseMessage<T> Post<T>(
+        /// <summary>
+        /// Posts a gzip compressed <param name="payload"></param> message to the specified <param name="endPoint"></param>
+        /// </summary>
+        /// <typeparam name="TResponseMessage">The strongly typed response message</typeparam>
+        /// <param name="config">The configuration.</param>
+        /// <param name="endPoint">The path for the API (example: /api/userprofile)</param>
+        /// <param name="payload">The payload request message</param>
+        /// <param name="query">Optional query parameters</param>
+        public static RestResponseMessage<TResponseMessage> PostCompressed<TResponseMessage>(
             RestClientConfig config,
             string endPoint,
             object payload = null,
-            NameValueCollection query = null) where T : class
+            NameValueCollection query = null) where TResponseMessage : class
+        {
+            var modifiedConfig = config.CreateCopy();
+
+            modifiedConfig.ContentEncoding = GZipCompressor.GZipEncoding;
+
+            return Post<TResponseMessage>(config, endPoint, payload, query);
+        }
+
+        /// <summary>
+        /// Posts a <param name="payload"></param> message to the specified <param name="endPoint"></param>
+        /// </summary>
+        /// <typeparam name="TResponseMessage">The strongly typed response message</typeparam>
+        /// <param name="config">The configuration.</param>
+        /// <param name="endPoint">The path for the API (example: /api/userprofile)</param>
+        /// <param name="payload">The payload request message</param>
+        /// <param name="query">Optional query parameters</param>
+        public static RestResponseMessage<TResponseMessage> Post<TResponseMessage>(
+            RestClientConfig config,
+            string endPoint,
+            object payload = null,
+            NameValueCollection query = null) where TResponseMessage : class
         {
             HttpRequestMessage request = RestClientUtil.BuildRequest(config, new RestClientRequest
             {
@@ -96,17 +146,46 @@ namespace Recognition360.RestClientLib
 
             if (payload != null)
             {
-                request.Content = new JsonContent(payload);
+                request.Content = new JsonContent(payload, config.ContentEncoding);
             }
 
-            return new RestResponseMessage<T>(RestRequestExecuter.AttemptRequestAsync(config, request));
+            return new RestResponseMessage<TResponseMessage>(RestRequestExecuter.AttemptRequestAsync(config, request));
         }
 
-        public static RestResponseMessage<T> Put<T>(
+        /// <summary>
+        /// Puts a gzip compressed <param name="payload"></param> message to the specified <param name="endPoint"></param>
+        /// </summary>
+        /// <typeparam name="TResponseMessage">The strongly typed response message</typeparam>
+        /// <param name="config">The configuration.</param>
+        /// <param name="endPoint">The path for the API (example: /api/userprofile)</param>
+        /// <param name="payload">The payload request message</param>
+        /// <param name="query">Optional query parameters</param>
+        public static RestResponseMessage<TResponseMessage> PutCompressed<TResponseMessage>(
             RestClientConfig config,
             string endPoint,
             object payload = null,
-            NameValueCollection query = null) where T : class
+            NameValueCollection query = null) where TResponseMessage : class
+        {
+            var modifiedConfig = config.CreateCopy();
+
+            modifiedConfig.ContentEncoding = GZipCompressor.GZipEncoding;
+
+            return Put<TResponseMessage>(config, endPoint, payload, query);
+        }
+
+        /// <summary>
+        /// Puts a <param name="payload"></param> message to the specified <param name="endPoint"></param>
+        /// </summary>
+        /// <typeparam name="TResponseMessage">The strongly typed response message</typeparam>
+        /// <param name="config">The configuration.</param>
+        /// <param name="endPoint">The path for the API (example: /api/userprofile)</param>
+        /// <param name="payload">The payload request message</param>
+        /// <param name="query">Optional query parameters</param>
+        public static RestResponseMessage<TResponseMessage> Put<TResponseMessage>(
+            RestClientConfig config,
+            string endPoint,
+            object payload = null,
+            NameValueCollection query = null) where TResponseMessage : class
         {
             HttpRequestMessage request = RestClientUtil.BuildRequest(config, new RestClientRequest
             {
@@ -117,10 +196,10 @@ namespace Recognition360.RestClientLib
 
             if (payload != null)
             {
-                request.Content = new JsonContent(payload);
+                request.Content = new JsonContent(payload, config.ContentEncoding);
             }
 
-            return new RestResponseMessage<T>(RestRequestExecuter.AttemptRequestAsync(config, request));
+            return new RestResponseMessage<TResponseMessage>(RestRequestExecuter.AttemptRequestAsync(config, request));
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Recognition360.RestClientLib
+namespace Terryberry.Http
 {
     public class RestResponse<T> where T : class
     {

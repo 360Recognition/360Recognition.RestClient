@@ -3,9 +3,9 @@ using System.Collections.Specialized;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
-using Recognition360.RestClientLib.Compression;
+using Terryberry.Http.Compression;
 
-namespace Recognition360.RestClientLib.Internal
+namespace Terryberry.Http.Internal
 {
     public static class RestClientUtil
     {

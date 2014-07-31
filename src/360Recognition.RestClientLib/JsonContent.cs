@@ -1,15 +1,19 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Net.Http.Headers;
 
-namespace Recognition360.RestClientLib
+namespace Terryberry.Http
 {
     public class JsonContent : StringContent
     {
-        public JsonContent(Object content)
+        public JsonContent(object content, string contentEncoding = null)
             : base(JSON.Generate(content))
         {
             Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            if (!string.IsNullOrEmpty(contentEncoding))
+            {
+                Headers.ContentEncoding.Add(contentEncoding);
+            }
         }
     }
 }

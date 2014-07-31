@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Recognition360.RestClientLib
+namespace Terryberry.Http
 {
     internal static class ExponentialBackoff
     {

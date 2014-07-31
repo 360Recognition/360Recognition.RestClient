@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
 
-namespace Recognition360.RestClientLib.Compression
+namespace Terryberry.Http.Compression
 {
     internal static class Compressors
     {

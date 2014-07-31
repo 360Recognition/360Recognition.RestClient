@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.IO.Compression;
 
-namespace Recognition360.RestClientLib.Compression
+namespace Terryberry.Http.Compression
 {
     public class DeflateCompressor : Compressor
     {

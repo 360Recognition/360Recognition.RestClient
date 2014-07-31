@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 
-namespace Recognition360.RestClientLib
+namespace Terryberry.Http
 {
     public class MaximumRetryAttemptsExceededException : ApplicationException
     {
