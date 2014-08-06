@@ -40,9 +40,21 @@ namespace Terryberry.Http
 
                 sw.WriteLine("RequestUri: {0} {1}", request.Method, request.RequestUri);
 
-                if (request.Content != null)
+                if (request.Content != null && !request.Content.IsMimeMultipartContent())
                 {
-                    sw.WriteLine(request.Content.ReadAsStringAsync().Result);
+                    try
+                    {
+                        sw.WriteLine(request.Content.ReadAsStringAsync().Result);
+                    }
+                    catch (ObjectDisposedException)
+                    {
+                        sw.WriteLine("** Unable to log request, because the content has been disposed");
+                    }
+                }
+
+                if (response.Content != null)
+                {
+                    sw.WriteLine(response.Content.ReadAsStringAsync().Result);
                 }
 
                 return sw.ToString();

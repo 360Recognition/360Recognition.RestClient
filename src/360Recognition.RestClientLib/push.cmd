@@ -1,0 +1,1 @@
+nuget push *.nupkg 22a19e3f-ee18-4560-8371-93ed95ff4dba -Source https://www.myget.org/F/terryberry/api/v2/package

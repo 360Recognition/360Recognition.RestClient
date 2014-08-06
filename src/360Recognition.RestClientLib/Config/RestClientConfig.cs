@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using Newtonsoft.Json;
 
 namespace Terryberry.Http
 {
@@ -12,6 +13,7 @@ namespace Terryberry.Http
         public RestClientConfig()
         {
             BackoffFactor = 25;
+            SerializerSettings = JsonSerializerSettingsManager.DefaultSettings;
         }
 
         public int? Port { get; set; }
@@ -47,6 +49,8 @@ namespace Terryberry.Http
         public string Token { get; set; }
 
         public double BackoffFactor { get; set; }
+
+        public JsonSerializerSettings SerializerSettings { get; set; }
 
         public RestClientConfig CreateCopy()
         {

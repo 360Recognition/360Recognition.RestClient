@@ -10,7 +10,7 @@ namespace Terryberry.Http
 
         public static JsonSerializerSettings Settings
         {
-            get { return LazyInitializer.EnsureInitialized(ref _settings, GetDefaultSerializerSettings); }
+            get { return LazyInitializer.EnsureInitialized(ref _settings, () => JsonSerializerSettingsManager.DefaultSettings); }
             set { _settings = value; }
         }
 
@@ -44,14 +44,6 @@ namespace Terryberry.Http
             return JsonConvert.DeserializeObject(value, type, opts ?? Settings);
         }
 
-        private static JsonSerializerSettings GetDefaultSerializerSettings()
-        {
-            return new JsonSerializerSettings
-            {
-                DefaultValueHandling = DefaultValueHandling.Ignore,
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                DateFormatHandling = DateFormatHandling.IsoDateFormat
-            };
-        }
+
     }
 }
