@@ -55,7 +55,7 @@ namespace Terryberry.Http.Internal
             using (var sw = new StringWriter())
             {
                 sw.WriteLine("{0} {1}", request.Method, request.RequestUri);
-                if (request.Content != null)
+                if (request.Content != null && !request.Content.IsMimeMultipartContent())
                 {
                     sw.WriteLine(await request.Content.ReadAsStringAsync());
                 }

@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Terryberry.Http")]
 [assembly: AssemblyDescription("HTTP/REST Client for Terryberry 360 Recognition platform")]
 [assembly: AssemblyCompany("Terryberry.Http")]
-[assembly: AssemblyProduct("360Recognition.RestClient")]
+[assembly: AssemblyProduct("Terryberry.Http")]
 [assembly: AssemblyCopyright("Copyright Terryberry 2010 - 2014")]
 [assembly: AssemblyTrademark("Be Recognized")]
 
@@ -17,5 +17,5 @@ using System.Runtime.InteropServices;
 /
 / See also http://docs.nuget.org/docs/reference/versioning
 / -------------------------------------------------------------------------------------------------- */
-[assembly: AssemblyVersion("1.0.0")]
-[assembly: AssemblyInformationalVersion("1.0.0")]
+[assembly: AssemblyVersion("1.3.1")]
+[assembly: AssemblyInformationalVersion("1.3.1")]

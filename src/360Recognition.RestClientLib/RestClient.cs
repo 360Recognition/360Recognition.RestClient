@@ -53,10 +53,10 @@ namespace Terryberry.Http
 
             if (payload != null)
             {
-                request.Content = new JsonContent(payload, config.ContentEncoding);
+                request.Content = new JsonContent(payload, config.ContentEncoding, config.SerializerSettings);
             }
 
-            return new RestResponseMessage<TResponseMessage>(RestRequestExecuter.AttemptRequestAsync(config, request));
+            return new RestResponseMessage<TResponseMessage>(RestRequestExecuter.AttemptRequestAsync(config, request), config.SerializerSettings);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace Terryberry.Http
         /// </summary>
         /// <param name="config">The configuration.</param>
         /// <param name="request">The request parameters.</param>
-        public static Task<HttpResponseMessage> Execute(RestClientConfig config, IRestClientRequest request)
+        public static RestResponseMessage<TResponseMessage> Execute<TResponseMessage>(RestClientConfig config, IRestClientRequest request) where TResponseMessage : class
         {
             HttpRequestMessage httpRequest = RestClientUtil.BuildRequest(config, new RestClientRequest
             {
@@ -74,10 +74,7 @@ namespace Terryberry.Http
                 Content = request.Content
             });
 
-            using (HttpClient client = RestClientUtil.CreateHttpClient())
-            {
-                return client.SendAsync(httpRequest);
-            }
+            return new RestResponseMessage<TResponseMessage>(RestRequestExecuter.AttemptRequestAsync(config, httpRequest), config.SerializerSettings);
         }
 
         /// <summary>
@@ -99,7 +96,7 @@ namespace Terryberry.Http
                 Method = HttpMethod.Get
             });
 
-            return new RestResponseMessage<TResponseMessage>(RestRequestExecuter.AttemptRequestAsync(config, request));
+            return new RestResponseMessage<TResponseMessage>(RestRequestExecuter.AttemptRequestAsync(config, request), config.SerializerSettings);
         }
 
         /// <summary>
@@ -146,10 +143,10 @@ namespace Terryberry.Http
 
             if (payload != null)
             {
-                request.Content = new JsonContent(payload, config.ContentEncoding);
+                request.Content = new JsonContent(payload, config.ContentEncoding, config.SerializerSettings);
             }
 
-            return new RestResponseMessage<TResponseMessage>(RestRequestExecuter.AttemptRequestAsync(config, request));
+            return new RestResponseMessage<TResponseMessage>(RestRequestExecuter.AttemptRequestAsync(config, request), config.SerializerSettings);
         }
 
         /// <summary>
@@ -196,10 +193,10 @@ namespace Terryberry.Http
 
             if (payload != null)
             {
-                request.Content = new JsonContent(payload, config.ContentEncoding);
+                request.Content = new JsonContent(payload, config.ContentEncoding, config.SerializerSettings);
             }
 
-            return new RestResponseMessage<TResponseMessage>(RestRequestExecuter.AttemptRequestAsync(config, request));
+            return new RestResponseMessage<TResponseMessage>(RestRequestExecuter.AttemptRequestAsync(config, request), config.SerializerSettings);
         }
     }
 }
