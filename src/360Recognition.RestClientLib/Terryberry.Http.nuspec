@@ -16,6 +16,7 @@
       1.2.0 - Added JsonSerializerSettingsManager to control serilization behaviors of both incoming and outgoing JSON content.
       1.3.1 - Fixed issue with disposed HttpContext before task is completed using Execute method.
               The api now throws a RestResponseException if the reponse cannot be read.
+      1.3.3 - Added Timeout configuration option for HttpClient.
     </releaseNotes>
     <copyright>Copyright Terryberry 2010 - 2014</copyright>
     <tags>HTTP, REST, WebAPI</tags>
