@@ -1,5 +1,8 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Linq;
+using System.Net.Http;
 using System.Net.Http.Formatting;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
@@ -58,7 +61,14 @@ namespace Terryberry.Http
 
         private static bool ResponseCanBeRead(HttpResponseMessage responseMessage, MediaTypeFormatter formatter)
         {
-            return responseMessage.IsSuccessStatusCode && formatter.SupportedMediaTypes.Contains(responseMessage.Content.Headers.ContentType);
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                return false;
+            }
+
+            MediaTypeHeaderValue contentType = responseMessage.Content.Headers.ContentType;
+
+            return formatter.SupportedMediaTypes.Any(x=> string.Equals(x.MediaType, contentType.MediaType, StringComparison.OrdinalIgnoreCase));
         }
 
         private JsonMediaTypeFormatter CreateMediaTypeFormatter()

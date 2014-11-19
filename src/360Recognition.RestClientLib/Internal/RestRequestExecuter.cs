@@ -20,6 +20,11 @@ namespace Terryberry.Http.Internal
 
             using (HttpClient client = RestClientUtil.CreateHttpClient())
             {
+                if (config.Timeout > TimeSpan.Zero)
+                {
+                    client.Timeout = client.Timeout;
+                }
+
                 if (logger.IsDebugEnabled)
                 {
                     await LogRequest(request, logger);
