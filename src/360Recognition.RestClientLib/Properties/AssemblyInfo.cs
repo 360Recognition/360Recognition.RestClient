@@ -17,5 +17,5 @@ using System.Runtime.InteropServices;
 /
 / See also http://docs.nuget.org/docs/reference/versioning
 / -------------------------------------------------------------------------------------------------- */
-[assembly: AssemblyVersion("1.3.3")]
-[assembly: AssemblyInformationalVersion("1.3.3-pre")]
+[assembly: AssemblyVersion("1.3.4")]
+[assembly: AssemblyInformationalVersion("1.3.4")]
