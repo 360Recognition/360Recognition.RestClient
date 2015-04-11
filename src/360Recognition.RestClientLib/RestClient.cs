@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Net.Http;
-using System.Threading.Tasks;
 using Terryberry.Http.Compression;
 using Terryberry.Http.Internal;
 
