@@ -66,11 +66,10 @@ namespace Terryberry.Http.Internal
 
         public static void SetOathQueryParameterIfRequired(IRestClientRequest request, string token)
         {
-            if (request.AuthTokenLocation == AuthTokenLocation.Querystring)
-            {
-                request.Query = request.Query ?? new NameValueCollection();
-                request.Query["oauth_token"] = token;
-            }
+            if (request.AuthTokenLocation != AuthTokenLocation.Querystring) return;
+
+            request.Query = request.Query ?? new NameValueCollection();
+            request.Query["oauth_token"] = token;
         }
 
         public static void SetOauthHeaderIfRequired(RestClientConfig config, IRestClientRequest request, HttpRequestHeaders headers)

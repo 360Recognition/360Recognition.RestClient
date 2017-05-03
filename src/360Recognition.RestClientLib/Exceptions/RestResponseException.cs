@@ -18,16 +18,13 @@ namespace Terryberry.Http
             Response = response;
         }
 
-        public HttpRequestMessage RequestMessage
-        {
-            get { return Response.RequestMessage; }
-        }
+        public HttpRequestMessage RequestMessage => Response.RequestMessage;
 
         public HttpResponseMessage Response { get; set; }
 
         private static string AppendDebugInfo(HttpResponseMessage response)
         {
-            if (response == null || response.RequestMessage == null)
+            if (response?.RequestMessage == null)
             {
                 return null;
             }

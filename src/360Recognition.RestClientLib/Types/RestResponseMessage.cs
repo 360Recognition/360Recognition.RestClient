@@ -11,7 +11,6 @@ namespace Terryberry.Http
     public class RestResponseMessage<T> where T : class
     {
         private readonly JsonSerializerSettings _serializerSettings;
-        private readonly Task<HttpResponseMessage> _task;
         private HttpResponseMessage _responseMessage;
 
         public RestResponseMessage(HttpResponseMessage responseMessage)
@@ -31,14 +30,11 @@ namespace Terryberry.Http
 
         public RestResponseMessage(Task<HttpResponseMessage> responseTask, JsonSerializerSettings serializerSettings)
         {
-            _task = responseTask;
+            Task = responseTask;
             _serializerSettings = serializerSettings;
         }
 
-        private Task<HttpResponseMessage> Task
-        {
-            get { return _task; }
-        }
+        private Task<HttpResponseMessage> Task { get; }
 
         public async Task<HttpResponseMessage> ReadHttpMessage()
         {

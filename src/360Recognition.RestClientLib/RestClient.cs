@@ -37,11 +37,9 @@ namespace Terryberry.Http
         /// <param name="endPoint">The path for the API (example: /api/userprofile)</param>
         /// <param name="query">Optional query parameters</param>
         /// <param name="payload">The payload request message</param>
-        public static RestResponseMessage<TResponseMessage> Delete<TResponseMessage>(
-            RestClientConfig config,
-            string endPoint,
-            NameValueCollection query = null,
-            Object payload = null) where TResponseMessage : class
+        public static RestResponseMessage<TResponseMessage> Delete<TResponseMessage>(RestClientConfig config, string endPoint,
+                                                                                     NameValueCollection query = null, Object payload = null)
+            where TResponseMessage : class
         {
             HttpRequestMessage request = RestClientUtil.BuildRequest(config, new RestClientRequest
             {
@@ -63,7 +61,8 @@ namespace Terryberry.Http
         /// </summary>
         /// <param name="config">The configuration.</param>
         /// <param name="request">The request parameters.</param>
-        public static RestResponseMessage<TResponseMessage> Execute<TResponseMessage>(RestClientConfig config, IRestClientRequest request) where TResponseMessage : class
+        public static RestResponseMessage<TResponseMessage> Execute<TResponseMessage>(RestClientConfig config, IRestClientRequest request)
+            where TResponseMessage : class
         {
             HttpRequestMessage httpRequest = RestClientUtil.BuildRequest(config, new RestClientRequest
             {
@@ -83,10 +82,8 @@ namespace Terryberry.Http
         /// <param name="config">The configuration.</param>
         /// <param name="endPoint">The path for the API (example: /api/userprofile)</param>
         /// <param name="query">Optional query parameters</param>
-        public static RestResponseMessage<TResponseMessage> Get<TResponseMessage>(
-            RestClientConfig config,
-            string endPoint,
-            NameValueCollection query = null) where TResponseMessage : class
+        public static RestResponseMessage<TResponseMessage> Get<TResponseMessage>(RestClientConfig config, string endPoint, NameValueCollection query = null)
+            where TResponseMessage : class
         {
             HttpRequestMessage request = RestClientUtil.BuildRequest(config, new RestClientRequest
             {
@@ -106,11 +103,9 @@ namespace Terryberry.Http
         /// <param name="endPoint">The path for the API (example: /api/userprofile)</param>
         /// <param name="payload">The payload request message</param>
         /// <param name="query">Optional query parameters</param>
-        public static RestResponseMessage<TResponseMessage> PostCompressed<TResponseMessage>(
-            RestClientConfig config,
-            string endPoint,
-            object payload = null,
-            NameValueCollection query = null) where TResponseMessage : class
+        public static RestResponseMessage<TResponseMessage> PostCompressed<TResponseMessage>(RestClientConfig config, string endPoint,
+                                                                                             object payload = null, NameValueCollection query = null)
+            where TResponseMessage : class
         {
             var modifiedConfig = config.CreateCopy();
 
@@ -127,11 +122,9 @@ namespace Terryberry.Http
         /// <param name="endPoint">The path for the API (example: /api/userprofile)</param>
         /// <param name="payload">The payload request message</param>
         /// <param name="query">Optional query parameters</param>
-        public static RestResponseMessage<TResponseMessage> Post<TResponseMessage>(
-            RestClientConfig config,
-            string endPoint,
-            object payload = null,
-            NameValueCollection query = null) where TResponseMessage : class
+        public static RestResponseMessage<TResponseMessage> Post<TResponseMessage>(RestClientConfig config, string endPoint,
+                                                                                   object payload = null, NameValueCollection query = null)
+            where TResponseMessage : class
         {
             HttpRequestMessage request = RestClientUtil.BuildRequest(config, new RestClientRequest
             {
@@ -156,11 +149,9 @@ namespace Terryberry.Http
         /// <param name="endPoint">The path for the API (example: /api/userprofile)</param>
         /// <param name="payload">The payload request message</param>
         /// <param name="query">Optional query parameters</param>
-        public static RestResponseMessage<TResponseMessage> PutCompressed<TResponseMessage>(
-            RestClientConfig config,
-            string endPoint,
-            object payload = null,
-            NameValueCollection query = null) where TResponseMessage : class
+        public static RestResponseMessage<TResponseMessage> PutCompressed<TResponseMessage>(RestClientConfig config, string endPoint,
+                                                                                            object payload = null, NameValueCollection query = null)
+            where TResponseMessage : class
         {
             var modifiedConfig = config.CreateCopy();
 
@@ -177,11 +168,9 @@ namespace Terryberry.Http
         /// <param name="endPoint">The path for the API (example: /api/userprofile)</param>
         /// <param name="payload">The payload request message</param>
         /// <param name="query">Optional query parameters</param>
-        public static RestResponseMessage<TResponseMessage> Put<TResponseMessage>(
-            RestClientConfig config,
-            string endPoint,
-            object payload = null,
-            NameValueCollection query = null) where TResponseMessage : class
+        public static RestResponseMessage<TResponseMessage> Put<TResponseMessage>(RestClientConfig config, string endPoint,
+                                                                                  object payload = null, NameValueCollection query = null)
+            where TResponseMessage : class
         {
             HttpRequestMessage request = RestClientUtil.BuildRequest(config, new RestClientRequest
             {

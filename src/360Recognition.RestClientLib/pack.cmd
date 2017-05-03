@@ -1,4 +1,4 @@
 DEL *.nupkg
 
-nuget pack -Prop Configuration=Release -Build -IncludeReferencedProjects
+nuget pack "Terryberry.Http.csproj" -Prop Configuration=Release -Build -IncludeReferencedProjects
 

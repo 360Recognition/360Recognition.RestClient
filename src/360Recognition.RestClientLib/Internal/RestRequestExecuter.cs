@@ -65,10 +65,11 @@ namespace Terryberry.Http.Internal
                 {
                     try
                     {
-                        sw.WriteLine(await request.Content.ReadAsStringAsync());                        
+                        sw.WriteLine(await request.Content.ReadAsStringAsync());
                     }
-                    catch (ObjectDisposedException)
+                    catch (ObjectDisposedException ex)
                     {
+                        logger.Fatal(ex);
                     }
                 }
                 logger.Debug(sw.ToString());

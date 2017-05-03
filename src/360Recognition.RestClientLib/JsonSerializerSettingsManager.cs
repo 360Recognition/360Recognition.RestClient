@@ -10,10 +10,10 @@ namespace Terryberry.Http
 
         public static JsonSerializerSettings DefaultSettings
         {
-            get { return LazyInitializer.EnsureInitialized(ref _jsonSerializerSettings, GetDefaultSerializerSettings); }
-            set { _jsonSerializerSettings = value; }
+            get => LazyInitializer.EnsureInitialized(ref _jsonSerializerSettings, GetDefaultSerializerSettings);
+            set => _jsonSerializerSettings = value;
         }
-        
+
         private static JsonSerializerSettings GetDefaultSerializerSettings()
         {
             return new JsonSerializerSettings

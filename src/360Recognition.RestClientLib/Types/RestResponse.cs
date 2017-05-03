@@ -11,17 +11,10 @@ namespace Terryberry.Http
 
         public RestResponse(HttpResponseMessage responseMessage)
         {
-            if (responseMessage == null)
-            {
-                throw new ArgumentNullException("responseMessage");
-            }
-            ResponseMessage = responseMessage;
+            ResponseMessage = responseMessage ?? throw new ArgumentNullException("responseMessage");
         }
 
-        public HttpContent Content
-        {
-            get { return ResponseMessage.Content; }
-        }
+        public HttpContent Content => ResponseMessage.Content;
 
         public HttpResponseMessage ResponseMessage { get; set; }
 

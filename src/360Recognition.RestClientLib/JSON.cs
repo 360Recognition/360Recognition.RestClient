@@ -11,7 +11,7 @@ namespace Terryberry.Http
         public static JsonSerializerSettings Settings
         {
             get { return LazyInitializer.EnsureInitialized(ref _settings, () => JsonSerializerSettingsManager.DefaultSettings); }
-            set { _settings = value; }
+            set => _settings = value;
         }
 
         public static string Generate(object value, JsonSerializerSettings opts = null)
@@ -37,11 +37,7 @@ namespace Terryberry.Http
         private static object DeserializeObject(string value, Type type, JsonSerializerSettings opts)
         {
             // If the target type is already string, then there is no need to Deserialize the value.
-            if (type == typeof(string))
-            {
-                return value;
-            }
-            return JsonConvert.DeserializeObject(value, type, opts ?? Settings);
+            return type == typeof(string) ? value : JsonConvert.DeserializeObject(value, type, opts ?? Settings);
         }
 
 

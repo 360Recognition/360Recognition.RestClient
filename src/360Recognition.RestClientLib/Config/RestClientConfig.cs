@@ -7,8 +7,8 @@ namespace Terryberry.Http
 {
     public class RestClientConfig
     {
-        private string _host;
         private string _scheme;
+        public string Host = "api.360recognition.com";
 
         public RestClientConfig()
         {
@@ -19,19 +19,6 @@ namespace Terryberry.Http
         public double BackoffFactor { get; set; }
 
         public string ContentEncoding { get; set; }
-
-        public string Host
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_host))
-                {
-                    _host = "api.360recognition.com";
-                }
-                return _host;
-            }
-            set { _host = value; }
-        }
 
         public int? Port { get; set; }
 
@@ -45,7 +32,7 @@ namespace Terryberry.Http
                 }
                 return _scheme;
             }
-            set { _scheme = value; }
+            set => _scheme = value;
         }
         public JsonSerializerSettings SerializerSettings { get; set; }
 
