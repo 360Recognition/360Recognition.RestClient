@@ -11,7 +11,7 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
         <releaseNotes>
-            1.4.1 - Now Requires .NET 4.6.2
+            1.5.1 - Now Requires .NET 4.6.2
         </releaseNotes>
         <copyright>Copyright Terryberry 2010 - 2017</copyright>
         <tags>HTTP, REST, WebAPI</tags>
