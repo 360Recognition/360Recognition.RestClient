@@ -14,5 +14,5 @@ using System.Runtime.InteropServices;
 / Use the http://semver.org/ schema.  For pre release build add -name# for pre release versioning.
 / See also http://docs.nuget.org/docs/reference/versioning
 / -------------------------------------------------------------------------------------------------- */
-[assembly: AssemblyVersion("1.5.1")]
-[assembly: AssemblyInformationalVersion("1.5.1")]
+[assembly: AssemblyVersion("1.5.3")]
+[assembly: AssemblyInformationalVersion("1.5.3")]
