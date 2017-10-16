@@ -7,3 +7,5 @@ call pack.cmd
 
 echo publishing package to feed
 call push.cmd
+
+DEL *.nupkg

@@ -11,6 +11,8 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
         <releaseNotes>
+            1.5.4 - Now using NET Standards 2.0
+            1.5.3 - Went back down to 4.6.1; the world is not ready for 4.6.2 yet
             1.5.2 - Updates System.Http.Net
             1.5.1 - Now Requires .NET 4.6.2
         </releaseNotes>

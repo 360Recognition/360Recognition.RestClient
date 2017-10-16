@@ -1,5 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\elomonaco.TBY_HQ01\.Rider2017.2\system\resharper-host\local\Transient\ReSharperHost\v10\SolutionCaches\_Terryberry.Http.-1515667773.00" t="ExcludeRecursive" />
+    <e p="C:\Users\elomonaco.TBY_HQ01\git\360Recognition.RestClient\src\360Recognition.RestClientLib" t="IncludeRecursive">
+      <e p="Abstract" t="Include">
+        <e p="IRestClientRequest.cs" t="Include" />
+      </e>
+      <e p="app.config" t="Include" />
+      <e p="bin" t="ExcludeRecursive" />
+      <e p="Compression" t="Include">
+        <e p="CompressedContent.cs" t="Include" />
+        <e p="CompressionHandler.cs" t="Include" />
+        <e p="Compressor.cs" t="Include" />
+        <e p="Compressors.cs" t="Include" />
+        <e p="DecompressionHandler.cs" t="Include" />
+        <e p="DeflateCompressor.cs" t="Include" />
+        <e p="GZipCompressor.cs" t="Include" />
+        <e p="ICompressor.cs" t="Include" />
+      </e>
+      <e p="Config" t="Include">
+        <e p="HttpClientOptions.cs" t="Include" />
+        <e p="RestClientConfig.cs" t="Include" />
+      </e>
+      <e p="Constants" t="Include">
+        <e p="AuthTokenLocation.cs" t="Include" />
+      </e>
+      <e p="Exceptions" t="Include">
+        <e p="MaximumRetryAttemptsExceededException.cs" t="Include" />
+        <e p="RestResponseException.cs" t="Include" />
+      </e>
+      <e p="ExponentialBackoff.cs" t="Include" />
+      <e p="Internal" t="Include">
+        <e p="RestClientUtil.cs" t="Include" />
+        <e p="RestRequestExecuter.cs" t="Include" />
+      </e>
+      <e p="JSON.cs" t="Include" />
+      <e p="JsonContent.cs" t="Include" />
+      <e p="JsonSerializerSettingsManager.cs" t="Include" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="pack.cmd" t="Include" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="packages.config" t="Include" />
+      <e p="Properties" t="Include">
+        <e p="AssemblyInfo.cs" t="Include" />
+      </e>
+      <e p="pubkey.snk" t="Include" />
+      <e p="publish.bat" t="Include" />
+      <e p="push.cmd" t="Include" />
+      <e p="RestClient.cs" t="Include" />
+      <e p="Terryberry.Http.csproj" t="IncludeRecursive" />
+      <e p="Terryberry.Http.nuspec" t="Include" />
+      <e p="Terryberry.Http.sln" t="IncludeFlat" />
+      <e p="Types" t="Include">
+        <e p="RestClientRequest.cs" t="Include" />
+        <e p="RestResponse.cs" t="Include" />
+        <e p="RestResponseMessage.cs" t="Include" />
+      </e>
+    </e>
+  </component>
   <component name="RiderRiderContentModelStore">
     <excludedPaths />
   </component>
