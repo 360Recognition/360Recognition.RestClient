@@ -10,14 +10,12 @@
     <AssemblyName>Terryberry.Http</AssemblyName>
     <PackageId>Terryberry.Http</PackageId>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.0.1</Version>
+    <Version>2.0.2</Version>
     <Description>HTTP/REST Client for Terryberry 360 Recognition platform</Description>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
     <PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.4" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Common.Logging" Version="3.4.1" />
+    <PackageReference Include="NLog" Version="5.3.2" />
   </ItemGroup>
 </Project>

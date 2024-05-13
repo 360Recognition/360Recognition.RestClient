@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Common.Logging;
+using NLog;
 
 namespace Terryberry.Http.Internal
 {
@@ -16,7 +16,7 @@ namespace Terryberry.Http.Internal
                 throw new MaximumRetryAttemptsExceededException(request, HttpClientOptions.RetryLimit);
             }
 
-            ILog logger = LogManager.GetLogger<RestClient>();
+            var logger = LogManager.GetCurrentClassLogger();
 
             using (HttpClient client = RestClientUtil.CreateHttpClient())
             {
@@ -56,7 +56,7 @@ namespace Terryberry.Http.Internal
             return response != null && response.StatusCode == HttpStatusCode.ServiceUnavailable;
         }
 
-        private static async Task LogRequest(HttpRequestMessage request, ILog logger)
+        private static async Task LogRequest(HttpRequestMessage request, ILogger logger)
         {
             using (var sw = new StringWriter())
             {
@@ -65,7 +65,7 @@ namespace Terryberry.Http.Internal
                 {
                     try
                     {
-                        sw.WriteLine(await request.Content.ReadAsStringAsync());
+                        await sw.WriteLineAsync(await request.Content.ReadAsStringAsync());
                     }
                     catch (ObjectDisposedException ex)
                     {
@@ -76,7 +76,7 @@ namespace Terryberry.Http.Internal
             }
         }
 
-        private static async Task LogResponse(HttpResponseMessage response, ILog logger)
+        private static async Task LogResponse(HttpResponseMessage response, ILogger logger)
         {
             if (response.Content != null)
             {
